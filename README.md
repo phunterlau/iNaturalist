@@ -5,13 +5,13 @@ MXNet fine-tune baseline script (resnet 152 layers) for iNaturalist Challenge at
 
 ### Install MXNet 
 
-Run `pip install mxnet-cu80` or go to <https://github.com/dmlc/mxnet/> for the latest version from Github.
+Run `pip install mxnet-cu80` after installing CUDA driver or go to <https://github.com/dmlc/mxnet/> for the latest version from Github.
 
 Windows users? no CUDA 8.0? no GPU? Please run `pip search mxnet` and find the good package for your platform.
 
 ### Generate list
 
-After downloading and unzipping the train and test set in to `data`, along with the necessary `.json` annotation files, run `python mx_list.py` and generate `train.lst` `val.lst` `test.lst`
+After downloading and unzipping the train and test set in to `data`, along with the necessary `.json` annotation files, run `python mx_list.py` under `data` and generate `train.lst` `val.lst` `test.lst`
 
 ### Train
 
@@ -38,7 +38,7 @@ After a long run of some epochs, e.g. 30 epochs, we can select some epochs for t
 python sub.py 21 0
 ```
 
-selects the 20th epoch and infer on GPU `#0`. One can merge multiple epoch results on different GPUs and ensemble for a good submission file.
+selects the 21st epoch and infer on GPU `#0`. One can merge multiple epoch results on different GPUs and ensemble for a good submission file.
 
 ## How 'fine-tune' works
 
