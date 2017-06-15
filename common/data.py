@@ -5,8 +5,8 @@ import numpy as np
 
 def add_data_args(parser):
     data = parser.add_argument_group('Data', 'the input images')
-    data.add_argument('--data-train', type=str, help='the training data')
-    data.add_argument('--data-val', type=str, help='the validation data')
+    #data.add_argument('--data-train', type=str, help='the training data')
+    #data.add_argument('--data-val', type=str, help='the validation data')
     data.add_argument('--rgb-mean', type=str, default='123.68,116.779,103.939',
                       help='a tuple of size 3 for the mean rgb')
     data.add_argument('--pad-size', type=int, default=0,
@@ -109,7 +109,9 @@ def get_rec_iter(args, kv=None):
     train = mx.img.ImageIter(
         label_width         = 1,
 	path_root	    = 'data/', 
-        path_imglist         = args.data_train,
+        #path_imglist         = args.data_train,
+		path_imgrec      = 'data/train.rec',
+		path_imgidx     = 'data/train.idx',
         data_shape          = (3, 320, 320),
         batch_size          = args.batch_size,
         rand_crop           = True,
@@ -122,12 +124,14 @@ def get_rec_iter(args, kv=None):
         pca_noise           = 0.1,
         num_parts           = nworker,
         part_index          = rank)
-    if args.data_val is None:
-        return (train, None)
+    #if args.data_val is None:
+    #    return (train, None)
     val = mx.img.ImageIter(
         label_width         = 1,
 	path_root	    = 'data/', 
-        path_imglist         = args.data_val,
+        #path_imglist         = args.data_val,
+		path_imgrec      = 'data/val.rec',
+		path_imgidx     = 'data/val.idx',
         batch_size          = args.batch_size,
         data_shape          =  (3, 320, 320),
         resize		    = 360, 

@@ -9,9 +9,13 @@ Run `pip install mxnet-cu80` after installing CUDA driver or go to <https://gith
 
 Windows users? no CUDA 8.0? no GPU? Please run `pip search mxnet` and find the good package for your platform.
 
-### Generate list
+### Generate lists
 
 After downloading and unzipping the train and test set in to `data`, along with the necessary `.json` annotation files, run `python mx_list.py` under `data` and generate `train.lst` `val.lst` `test.lst`
+
+### Generate rec files
+
+A good way to speed up training is maximizing the IO by using `.rec` format, which also provides convenience of data augmentation. In the `data/` directory, `gen_rec.sh` can generate `train.rec` and `val.rec` for the train and validate datasets, and `im2rec.py` can be obtained from MXNet repo <https://github.com/dmlc/mxnet/tree/master/tools> . One can adjust `--quality 95` parameter to lower quality for saving disk space, but it may take risk of loosing training precision.
 
 ### Train
 
@@ -20,8 +24,7 @@ Run `sh run.sh` which looks like (a 4 GTX 1080 machine for example):
 ```
 python fine-tune.py --pretrained-model model/resnet-152 \
     --load-epoch 0 --gpus 0,1,2,3 \
-    --data-train data/train.lst --model-prefix model/iNat-resnet-152 \
-    --data-val data/val.lst \
+    --model-prefix model/iNat-resnet-152 \
 	--data-nthreads 48 \
     --batch-size 48 --num-classes 5089 --num-examples 579184
 ```
